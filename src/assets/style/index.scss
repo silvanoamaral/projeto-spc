@@ -1,0 +1,22 @@
+@font-face {
+  font-family: 'Univers';
+  src: url('../font/univers-normal.woff');
+}
+@font-face {
+  font-family: 'Univers-bold';
+  src: url('../font/univers-bold.woff');
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  font-family: 'Univers';
+}
+*:focus {
+  outline: none;
+}
+button {
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+}

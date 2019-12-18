@@ -23,8 +23,21 @@ module.exports = {
       },
       {
         test: /\.(jpe?g|png|gif|svg)$/i,
-        include: path.resolve(__dirname, '../public/image/'),
+        include: path.resolve(__dirname, '../src/assets/image/'),
         use: ['file-loader']
+      },
+      {
+        test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+        include: path.resolve(__dirname, '../src/assets/font/'),
+        use: [
+          {
+            loader: 'url-loader',
+            options: {
+              limit: 1000,
+              mimetype: 'application/font-woff'
+            }
+          }
+        ]
       }
     ]
   }
