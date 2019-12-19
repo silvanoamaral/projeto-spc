@@ -1,27 +1,45 @@
 import React, { Component } from 'react'
-import axios from 'axios'
+import { connect } from 'react-redux'
+
+import register from '../../services/register'
+import SearchBar from '../../components/SearchBar'
 
 class Dashboard extends Component {
   checkLoginStatus() {
     return localStorage.getItem('userLogin') != null
   }
 
-  componentDidMount() {
+  componentDidMount() {  
     if(!this.checkLoginStatus()) {
       this.props.history.push("/")
     }
-    axios.get(`/api/registro/`)
-    .then(response => {
-      console.log(response)
-    })
-    .catch((error) => {
-      console.log(error)
-    })
+
+    const { dispatch } = this.props
+    dispatch(register.getRegister())
   }
 
   render() {
-    return <h1>Dashboard</h1>
+    const { pending, filtered } = this.props.registrationReducer
+
+    return <>
+      <SearchBar />
+      {pending ?
+        <h2>Aguarde...</h2>
+      : (filtered && filtered.data &&
+        (filtered.data.length ? 
+          filtered.data.map(item => {
+            return <p key={ item.id }>{ item.cpf }</p>
+          })
+          :
+          <p>Not Found</p>
+        )
+      )}
+    </>
   }
 }
 
-export default Dashboard
+const mapStateToProps = (state) => {
+  return { ...state }
+}
+
+export default connect(mapStateToProps)(Dashboard)

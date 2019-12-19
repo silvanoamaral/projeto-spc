@@ -11,10 +11,11 @@ const getAllRegistro = async (req, res, next) => {
       'Accept': 'application/json'
     }
   }).then(response => {
-    return res.status(200).send({ data: response.data })
+    const data = response.data
+    return res.status(200).send({ data })
   })
   .catch((error) => {
-    return res.status(401).send({ data: {} })
+    return res.status(401).send({ error })
   })
   next()
 }
