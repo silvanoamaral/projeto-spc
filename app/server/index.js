@@ -15,7 +15,7 @@ app.use(bodyParser.json())
 * /registro?id=xx retorna o registro com base no ID
 * /registro retorna todos os registros
 */
-app.get('/registro', getAllRegistro)
+app.get('/api/registro', getAllRegistro)
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('dist'))

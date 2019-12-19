@@ -9,7 +9,12 @@ module.exports = merge(common, {
   devServer: {
     contentBase: './dist',
     historyApiFallback: true,
-    port: 8002
+    port: 8002,
+    proxy: {
+      '/api': {
+        target: 'http://localhost:5002'
+      }
+    }
   },
   plugins: [
     new HtmlWebpackPlugin ({
