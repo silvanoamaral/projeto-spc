@@ -2,7 +2,9 @@ import {
   FETCH_REGISTRATION_ERROR,
   FETCH_REGISTRATION_PENDING,
   FETCH_REGISTRATION_SUCCESS,
-  FETCH_REGISTRATION_SEARCH
+  FETCH_REGISTRATION_SEARCH,
+  EDIT__REGISTER,
+  REMOVE_REGISTER
 } from '../actions/actionTypes'
 
 const initialState = {
@@ -49,6 +51,16 @@ export const registrationReducer = (state = initialState, action) => {
             return lc.includes(filter)
           })
         }
+      }
+    }
+    case REMOVE_REGISTER: {
+      return {
+        action
+      }
+    }
+    case EDIT__REGISTER: {
+      return {
+        action
       }
     }
     default:

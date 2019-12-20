@@ -11,13 +11,18 @@ class Dashboard extends Component {
     return localStorage.getItem('userLogin') != null
   }
 
-  componentDidMount() {  
+  componentDidMount() {
     if(!this.checkLoginStatus()) {
       this.props.history.push("/")
     }
 
     const { dispatch } = this.props
     dispatch(register.getRegister())
+  }
+
+  removeRegister(id) {
+    const { dispatch } = this.props
+    dispatch(register.removeRegister(id))
   }
 
   render() {
@@ -48,14 +53,26 @@ class Dashboard extends Component {
                 <span>{ item.numeroContrato }</span>
                 <span className="action">
                   <div className="action__icons">
-                    <button className="btn editor"><i class='fas fa-pen'></i>Editar</button>
-                    <button className="btn delete"><i class='fas fa-trash-alt'></i>Deletar</button>
+                    <button
+                      className="btn editor"
+                      data-id={ item.id }
+                      onClick={ () =>this.props.dispatch({ type:'EDIT__REGISTER', id:item.id }) }
+                    >
+                      <i className='fas fa-pen'></i>Editar
+                    </button>
+                    <button
+                      className="btn remove"
+                      data-id={ item.id }
+                      onClick={ () => this.removeRegister(item.id) }
+                    >
+                      <i className='fas fa-trash-alt'></i>Deletar
+                    </button>
                   </div>
                 </span>
               </li>
             })
           }
-          </ul>          
+          </ul>
           :
           <p>Not Found</p>
         )

@@ -3,7 +3,7 @@
 const express    = require('express')
 const path       = require('path')
 const bodyParser = require('body-parser')
-const { getAllRegistro } = require('../registro/registroApi.js')
+const { getAllRegister, removeRegister } = require('../registro/registroApi.js')
 
 const app = express()
 const port = process.env.PORT || 5002
@@ -15,7 +15,8 @@ app.use(bodyParser.json())
 * /registro?id=xx retorna o registro com base no ID
 * /registro retorna todos os registros
 */
-app.get('/api/registro', getAllRegistro)
+app.get('/api/registro', getAllRegister)
+app.get('/api/remove', removeRegister)
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('dist'))

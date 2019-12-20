@@ -16,11 +16,25 @@ const getRegister = () => {
     })
     .catch((error) => {
       dispatch(fetchRegisterError(error))
-      console.log(error)
+    })
+  }
+}
+
+const removeRegister = (id = 0) => {
+  return dispatch => {
+    dispatch(fetchRegisterPending())
+
+    axios.get(`/api/remove?id=${ id }`)
+    .then(() => {
+      dispatch(getRegister())
+    })
+    .catch((error) => {
+      dispatch(fetchRegisterError(error))
     })
   }
 }
 
 export default {
   getRegister,
+  removeRegister
 }

@@ -19,7 +19,17 @@ export const fetchRegisterError = error => ({
   error,
 })
 
-export const search = value => ({
+export const searchRegister = value => ({
   type: FETCH_REGISTRATION_SEARCH,
   value,
+})
+
+export const deleteRegister = id => ({
+  type: REMOVE_REGISTER,
+  id,
+})
+
+export const editRegister = id => ({
+  type: EDIT__REGISTER,
+  id,
 })
