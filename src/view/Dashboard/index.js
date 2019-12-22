@@ -48,7 +48,7 @@ class Dashboard extends Component {
               return <li key={ item.id }>
                 <span>{ item.cpf }</span>
                 <span>{ item.nome }</span>
-                <span>{ item.valordivida }</span>
+                <span>{ item.valorDivida || item.valordivida }</span>
                 <span>{ item.dataInclusao }</span>
                 <span>{ item.numeroContrato }</span>
                 <span className="action">

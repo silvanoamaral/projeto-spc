@@ -49,13 +49,13 @@ class CreateRegister extends Component {
     e.preventDefault()
     const { cpf, nome, valorDivida, dataInclusao} = this.state
     const data = {
-      cpf,
       nome,
+      cpf,
       valorDivida,
       dataInclusao
     }
     const { dispatch } = this.props
-    dispatch(register.setRegister(data))
+    dispatch(register.includeRegister(data))
   }
 
   render() {
