@@ -24,7 +24,12 @@ const removeRegister = (id = 0) => {
   return dispatch => {
     dispatch(fetchRegisterPending())
 
-    axios.get(`/api/remove?id=${ id }`)
+    axios.delete(`http://5d52bcb73432e70014e6bc2c.mockapi.io/spc/registro/${id}`, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      }
+    })
     .then(() => {
       dispatch(getRegister())
     })

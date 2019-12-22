@@ -1,5 +1,7 @@
 import React from 'react'
 
+import InputCustomized from '../../components/InputCustomized'
+
 import './Login.scss'
 
 class Login extends React.Component {
@@ -85,18 +87,14 @@ class Login extends React.Component {
           </div>
         }
         <form name="form" className="form" onSubmit={ this.handleSubmit }>
-          <div className={'form__group' + (submitted && !username ? ' has-error' : '')}>
-            <label htmlFor="username">Username</label>
-            <input
-              type="text"
-              name="username"
-              value={ username }
-              onChange={ this.handleChange }
-            />
-            {submitted && !username &&
-              <div className="form__group-error">Username is required</div>
-            }
-          </div>
+          <InputCustomized
+            label="Usuário"
+            name="username"            
+            value={ username }
+            submitted={ submitted }
+            onChange={ this.handleChange }
+          />
+
           <div className={'form__group' + (submitted && !password ? ' has-error' : '')}>
             <label htmlFor="password">Password</label>
             <input 
