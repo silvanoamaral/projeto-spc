@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import register from '../../services/register'
 
 import InputCustomized from '../../components/InputCustomized'
+import Lightbox from '../../components/Lightbox'
 
 import './CreateRegister.scss'
 
@@ -60,7 +61,7 @@ class CreateRegister extends Component {
 
   render() {
     return (
-      <div className="create__register box__form">        
+      <div className="create__register box__form"> 
         <form onSubmit={ this.handleSubmit } className="form">
           <h2>Incluir</h2>
 
@@ -105,6 +106,10 @@ class CreateRegister extends Component {
             <button className="btn btn-primary">Adicionar entrada</button>
           </div>
         </form>
+        <Lightbox
+          title="Titulo "
+          subTitle={`Deseja incluir o usuário ${this.state.nome }`}
+        />
       </div>
     )
   }

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+import { Link } from 'react-router-dom'
 
 import { searchRegister } from '../../redux/actions'
 import './SearchBar.scss'
@@ -10,15 +11,20 @@ class SearchBar extends Component {
     const { searchRegister, value } = this.props
 
     return (
-      <div className="search">
-        <input
-          type="text"
-          className="search__input"
-          placeholder="Filtrar pelo CPF"
-          onChange={ e => searchRegister(e.target.value) }
-          value={ value }
-        />
-      </div>
+      <header>
+        <div className="search">
+          <input
+            type="text"
+            className="search__input"
+            placeholder="Filtrar pelo CPF"
+            onChange={ e => searchRegister(e.target.value) }
+            value={ value }
+          />
+        </div>
+        <div className="btn__link">
+          <Link to="/register">Adicionar</Link>
+        </div>
+      </header>
     )
   }
 }
