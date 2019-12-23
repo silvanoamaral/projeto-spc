@@ -8,8 +8,40 @@ import InputCustomized from '../../components/InputCustomized'
 class EditRegister extends Component {
   constructor(props) {
     super(props)
+
     this.state = {
-      register: ''
+      idRegister: '',
+      cpf: '',
+      nome: '',
+      valorDivida: '',
+      dataInclusao: '',
+      errorLogin: false,
+      errorMessage: '',
+      submitted: false,
+      register: '',
+      condition: true
+    }
+
+    this.handleChange = this.handleChange.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
+  }
+
+  componentDidUpdate() {
+    const { pending, filtered } = this.props.registrationReducer
+
+    if(!pending) {
+      if(filtered.data != undefined) {
+        if (this.state.condition) {
+          this.setState({
+            condition: false,
+            idRegister: filtered.data.id,
+            cpf: filtered.data.cpf,
+            nome: filtered.data.nome,
+            valorDivida: filtered.data.valorDivida || filtered.data.valordivida,
+            dataInclusao: filtered.data.dataInclusao,
+          })
+        }
+      }
     }
   }
 
@@ -24,20 +56,43 @@ class EditRegister extends Component {
       })
       const { dispatch } = this.props
       dispatch(getRegister.getRegister(register))
-    }    
+    }
+  }
+
+  handleChange(e) {
+    const { name, value } = e.target
+    this.setState({ [name]: value })
+
+    this.setState({
+      errorMessage: '',
+      errorLogin: false
+    })
+  }
+
+  handleSubmit(e) {
+    e.preventDefault()
+    const { cpf, nome, valorDivida, dataInclusao} = this.state
+    const data = {
+      nome,
+      cpf,
+      valorDivida,
+      dataInclusao
+    }
+
+    const { dispatch } = this.props
+    dispatch(getRegister.updateRegister(this.state.idRegister, data))
   }
 
   render() {
     const { register } = this.state
     const { pending, filtered } = this.props.registrationReducer
-    console.log({ filtered })
+
     return <>
     {pending ?
       <h2>Aguarde...</h2>
     : (filtered &&
-        (filtered.data ?          
+        (filtered.data ?         
           <div className="create__register box__form">
-            <h2>Atualizar Registro:. { register }</h2>     
             <form onSubmit={ this.handleSubmit } className="form">
               <h2>Editar</h2>
 

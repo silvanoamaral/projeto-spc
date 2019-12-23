@@ -20,6 +20,25 @@ const getRegister = (id = '') => {
   }
 }
 
+const updateRegister = (id = 0, params) => {
+  return dispatch => {
+    dispatch(fetchRegisterPending())
+
+    axios.put(`http://5d52bcb73432e70014e6bc2c.mockapi.io/spc/registro/${id}`, params, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      }
+    })
+    .then(() => {
+      dispatch(getRegister(id))
+    })
+    .catch((error) => {
+      dispatch(fetchRegisterError(error))
+    })
+  }
+}
+
 const removeRegister = (id = 0) => {
   return dispatch => {
     dispatch(fetchRegisterPending())
@@ -67,5 +86,6 @@ const includeRegister = (params) => {
 export default {
   getRegister,
   includeRegister,
+  updateRegister,
   removeRegister
 }
