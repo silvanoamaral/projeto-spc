@@ -60,7 +60,7 @@ class CreateRegister extends Component {
 
   render() {
     return (
-      <div className="create__register">        
+      <div className="create__register box__form">        
         <form onSubmit={ this.handleSubmit } className="form">
           <h2>Incluir</h2>
 

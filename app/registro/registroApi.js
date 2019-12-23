@@ -2,7 +2,7 @@
 
 const axios = require('axios')
 
-const getAllRegister = async (req, res, next) => {
+const getRegister = async (req, res, next) => {
   const _id = req.query.id ? req.query.id : ''
 
   await axios.get(`http://5d52bcb73432e70014e6bc2c.mockapi.io/spc/registro/${_id}`, {
@@ -38,6 +38,6 @@ const removeRegister = async (req, res, next) => {
 }
 
 module.exports = {
-  getAllRegister,
+  getRegister,
   removeRegister
 }

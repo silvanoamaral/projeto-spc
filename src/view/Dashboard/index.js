@@ -20,11 +20,6 @@ class Dashboard extends Component {
     dispatch(register.getRegister())
   }
 
-  removeRegister(id) {
-    const { dispatch } = this.props
-    dispatch(register.removeRegister(id))
-  }
-
   render() {
     const { pending, filtered } = this.props.registrationReducer
 
@@ -56,14 +51,19 @@ class Dashboard extends Component {
                     <button
                       className="btn editor"
                       data-id={ item.id }
-                      onClick={ () =>this.props.dispatch({ type:'EDIT__REGISTER', id:item.id }) }
+                      onClick={ () =>
+                        this.props.history.push({
+                          pathname: `/edit-register`,
+                          state: { register: item.id }
+                        })
+                      }
                     >
                       <i className='fas fa-pen'></i>Editar
                     </button>
                     <button
                       className="btn remove"
                       data-id={ item.id }
-                      onClick={ () => this.removeRegister(item.id) }
+                      onClick={ () => this.props.dispatch(register.removeRegister(item.id)) }
                     >
                       <i className='fas fa-trash-alt'></i>Deletar
                     </button>

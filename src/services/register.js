@@ -6,11 +6,11 @@ import {
   fetchRegisterError,
 } from '../redux/actions'
 
-const getRegister = () => {
+const getRegister = (id = '') => {
   return dispatch => {
     dispatch(fetchRegisterPending())
 
-    axios.get(`/api/registro/`)
+    axios.get(`/api/registro/`, { params: { id: id } })
     .then(response => {
       dispatch(fetchRegisterSuccess(response.data))
     })
