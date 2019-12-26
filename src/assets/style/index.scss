@@ -11,6 +11,7 @@
   margin: 0;
   padding: 0;
   font-family: 'Univers';
+  list-style: none;
 }
 *:focus {
   outline: none;
@@ -37,12 +38,23 @@ button {
   cursor: pointer;
 }
 
+input {
+  border: 1px solid #bbb;
+  border-radius: 5px;
+  text-align: center;
+  font-size: 16px;
+  padding: 15px 0;
+  width: 100%;
+  text-indent: 12px;
+  margin-bottom: 20px;
+}
+
 .box {
   &__form {
     max-width: 700px;
     min-width: 500px;
     margin: 0 auto;
-    margin-top: 40px;
+    margin-bottom: 40px;
   }
 }
 
@@ -81,17 +93,6 @@ button {
       }
     }
 
-    input {
-      border: 1px solid #bbb;
-      border-radius: 5px;
-      text-align: center;
-      font-size: 16px;
-      padding: 15px 0;
-      width: 100%;
-      text-indent: 12px;
-      margin-bottom: 20px;
-    }
-
     button {
       &.btn__eye {
         position: absolute;
@@ -110,4 +111,10 @@ button {
       }
     }
   }
+}
+
+.container {
+  width: 100%;
+  max-width: 1220px;
+  margin: 0 auto;
 }

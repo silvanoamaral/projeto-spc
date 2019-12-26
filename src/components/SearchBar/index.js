@@ -12,20 +12,22 @@ class SearchBar extends Component {
     const { searchRegister, value } = this.props
 
     return (
-      <header>
-        <div className="search">
-          <input
-            type="text"
-            className="search__input"
-            placeholder="Filtrar pelo CPF"
-            onChange={ e => searchRegister(mask.cpfMask(e.target.value)) }
-            value={ value || '' }
-          />
+      <section>
+        <div className="container">
+          <div className="search">
+            <input
+              type="text"
+              className="search__input"
+              placeholder="Insira o CPF a ser pesquisado"
+              onChange={ e => searchRegister(mask.cpfMask(e.target.value)) }
+              value={ value || '' }
+            />
+          </div>
+          <div className="btn__link">
+            <Link to="/register">Adicionar</Link>
+          </div>
         </div>
-        <div className="btn__link">
-          <Link to="/register">Adicionar</Link>
-        </div>
-      </header>
+      </section>
     )
   }
 }

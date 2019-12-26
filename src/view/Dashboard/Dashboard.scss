@@ -1,24 +1,32 @@
 .dashboard {
+  min-height: 600px;
+
   li {
     display: flex;
     width: 100%;
+    padding: 10px 0;
 
+    &:nth-child(2n+2) {
+      background: #efefef;
+    }
+  
     span {
-      display: table-cell;
       padding: 10px;
-      min-width: 100px;
+      min-width: 18%;
       text-align: left;
 
       &.action {
         position: relative;
-        min-width: 40px;
+        min-width: 2%;
+        padding: 10px 0;
 
         &:before {
           cursor: pointer;
           content: '...';
           letter-spacing: 3px;
           transform: rotate(-90deg);
-          position: absolute;          
+          position: absolute;
+          right: 10px;       
         }
         &:hover {
           .action__icons {

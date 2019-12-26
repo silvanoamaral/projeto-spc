@@ -49,21 +49,20 @@ class Dashboard extends Component {
   render() {
     const { pending, filtered, toggleModal } = this.props.registrationReducer
 
-    return <>
+    return <div className="container dashboard">
       <SearchBar />
       {pending ?
         <h2>Aguarde...</h2>
       : (filtered && filtered.data &&
         (filtered.data.length ?
           <>
-          <ul className="dashboard">
+          <ul className="dashboard__list">
             <li>
-              <span>cpf</span>
-              <span>nome</span>
-              <span>valor da dívida</span>
-              <span>data da Inclusão</span>
+              <span>CPF</span>
+              <span>Nome</span>
+              <span>Valor da dívida</span>
+              <span>Data da Inclusão</span>
               <span>Nº do contrato</span>
-              <span></span>
             </li>
           {
             filtered.data.map(item => {
@@ -104,7 +103,7 @@ class Dashboard extends Component {
           {toggleModal &&
             <Lightbox
               title="Titulo"
-              subTitle={`Deseja incluir o usuário ${this.state.nome }`}
+              subTitle={`Deseja excluir o usuário ${this.state.nome }`}
               dataRegister={ this.state.dataRegister }
               onClick={ this.handleClick }
               pending={ pending }
@@ -115,7 +114,7 @@ class Dashboard extends Component {
           <p>Not Found</p>
         )
       )}
-    </>
+    </div>
   }
 }
 
