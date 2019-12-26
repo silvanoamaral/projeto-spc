@@ -90,7 +90,7 @@ class CreateRegister extends Component {
   }
 
   render() {
-    const { toggleModal } = this.props.registrationReducer
+    const { toggleModal, pending } = this.props.registrationReducer
 
     return (
       <div className="create__register box__form"> 

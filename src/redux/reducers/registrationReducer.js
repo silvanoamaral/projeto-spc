@@ -56,11 +56,13 @@ export const registrationReducer = (state = initialState, action) => {
     }
     case TOGGLE_MODAL_OPEN: {
       return {
+        ...state,
         toggleModal: true,
       }
     }
     case TOGGLE_MODAL_CLOSE: {
       return {
+        ...state,
         toggleModal: false,
       }
     }

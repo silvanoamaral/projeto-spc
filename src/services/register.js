@@ -51,6 +51,7 @@ const removeRegister = (id = 0) => {
       }
     })
     .then(() => {
+      dispatch({ type: 'TOGGLE_MODAL_CLOSE' })
       dispatch(getRegister())
     })
     .catch((error) => {

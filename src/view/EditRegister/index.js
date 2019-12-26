@@ -85,7 +85,6 @@ class EditRegister extends Component {
     this.setState({
       dataRegister: data
     })
-    console.log(data)
 
     const { dispatch } = this.props
     dispatch({ type: 'TOGGLE_MODAL_OPEN' })

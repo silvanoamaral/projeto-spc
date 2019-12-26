@@ -3,10 +3,22 @@ import { connect } from 'react-redux'
 
 import register from '../../services/register'
 import SearchBar from '../../components/SearchBar'
+import Lightbox from '../../components/Lightbox'
 
 import './Dashboard.scss'
 
 class Dashboard extends Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      nome: '',
+      idRegister: ''
+    }
+
+    this.handleClick = this.handleClick.bind(this)
+  }
+
   checkLoginStatus() {
     return localStorage.getItem('userLogin') != null
   }
@@ -20,8 +32,22 @@ class Dashboard extends Component {
     dispatch(register.getRegister())
   }
 
+  handleClick() {
+    this.props.dispatch(register.removeRegister(this.state.idRegister))
+  }
+
+  handleClickOpenDelete(event) {
+    const { dispatch } = this.props
+    dispatch({ type: 'TOGGLE_MODAL_OPEN' })
+
+    this.setState({
+      nome: event.target.getAttribute('data-name'),
+      idRegister: event.target.getAttribute('data-id')
+    })
+  }
+
   render() {
-    const { pending, filtered } = this.props.registrationReducer
+    const { pending, filtered, toggleModal } = this.props.registrationReducer
 
     return <>
       <SearchBar />
@@ -29,6 +55,7 @@ class Dashboard extends Component {
         <h2>Aguarde...</h2>
       : (filtered && filtered.data &&
         (filtered.data.length ?
+          <>
           <ul className="dashboard">
             <li>
               <span>cpf</span>
@@ -63,7 +90,8 @@ class Dashboard extends Component {
                     <button
                       className="btn remove"
                       data-id={ item.id }
-                      onClick={ () => this.props.dispatch(register.removeRegister(item.id)) }
+                      data-name={ item.nome }
+                      onClick={ event => this.handleClickOpenDelete(event) }
                     >
                       <i className='fas fa-trash-alt'></i>Deletar
                     </button>
@@ -71,8 +99,18 @@ class Dashboard extends Component {
                 </span>
               </li>
             })
-          }
+          }          
           </ul>
+          {toggleModal &&
+            <Lightbox
+              title="Titulo"
+              subTitle={`Deseja incluir o usuário ${this.state.nome }`}
+              dataRegister={ this.state.dataRegister }
+              onClick={ this.handleClick }
+              pending={ pending }
+            />
+          }
+          </>
           :
           <p>Not Found</p>
         )

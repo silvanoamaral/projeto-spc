@@ -19,7 +19,7 @@ class SearchBar extends Component {
             className="search__input"
             placeholder="Filtrar pelo CPF"
             onChange={ e => searchRegister(mask.cpfMask(e.target.value)) }
-            value={ value }
+            value={ value || '' }
           />
         </div>
         <div className="btn__link">
