@@ -25,6 +25,7 @@ class EditRegister extends Component {
 
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleClick = this.handleClick.bind(this)
   }
 
   componentDidUpdate() {
@@ -88,16 +89,22 @@ class EditRegister extends Component {
 
     const { dispatch } = this.props
     dispatch({ type: 'TOGGLE_MODAL_OPEN' })
-    //dispatch(getRegister.updateRegister(this.state.idRegister, data))
+  }
+
+  handleClick() {
+    const { dispatch } = this.props
+    dispatch(getRegister.updateRegister(this.state.idRegister, this.state.dataRegister, this.props.history))
   }
 
   render() {
-    const { toggleModal } = this.props.registrationReducer
+    const { toggleModal, pending } = this.props.registrationReducer
 
     return <div className="create__register box__form">
       <form onSubmit={ this.handleSubmit } className="form">
         <h2>Editar</h2>
-
+        {pending &&
+          <p>Aguarde...</p>
+        }
         <InputCustomized
           label="CPF"
           name="cpf"
@@ -146,6 +153,8 @@ class EditRegister extends Component {
           title="Titulo"
           subTitle={`Deseja alterar o registro ${this.state.nome }`}
           dataRegister={ this.state.dataRegister }
+          onClick={ this.handleClick }
+          pending={ pending }
         />
       }
     </div>

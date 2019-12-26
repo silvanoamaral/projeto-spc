@@ -20,7 +20,7 @@ const getRegister = (id = '') => {
   }
 }
 
-const updateRegister = (id = 0, params) => {
+const updateRegister = (id = 0, params, history) => {
   return dispatch => {
     dispatch(fetchRegisterPending())
 
@@ -31,7 +31,8 @@ const updateRegister = (id = 0, params) => {
       }
     })
     .then(() => {
-      dispatch(getRegister(id))
+      dispatch({ type: 'TOGGLE_MODAL_CLOSE' })
+      history.push("/dashboard")
     })
     .catch((error) => {
       dispatch(fetchRegisterError(error))
@@ -58,7 +59,7 @@ const removeRegister = (id = 0) => {
   }
 }
 
-const includeRegister = (params) => {
+const includeRegister = (params, history) => {
   return dispatch => {
     dispatch(fetchRegisterPending())
 
@@ -68,14 +69,9 @@ const includeRegister = (params) => {
         'Accept': 'application/json'
       }
     })
-    .then(response => {
-      if(response.status === 201) {
-        console.log('Sucess', response)
-        return true
-      }
-      console.log('Error:.', response)
-      return false
-      //dispatch(getRegister())
+    .then(() => {
+      dispatch({ type: 'TOGGLE_MODAL_CLOSE' })
+      history.push("/dashboard")
     })
     .catch((error) => {
       dispatch(fetchRegisterError(error))

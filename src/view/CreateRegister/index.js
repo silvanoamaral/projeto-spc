@@ -26,6 +26,7 @@ class CreateRegister extends Component {
 
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleClick = this.handleClick.bind(this)
   }
 
   checkLoginStatus() {
@@ -64,9 +65,6 @@ class CreateRegister extends Component {
     this.setState({ submitted: true })
 
     if(this.isNoSubmitForm()) {
-      const { dispatch } = this.props
-      dispatch({ type: 'TOGGLE_MODAL_OPEN' })
-
       const { cpf, nome, valorDivida, dataInclusao } = this.state
       const data = {
         nome,
@@ -78,12 +76,17 @@ class CreateRegister extends Component {
       this.setState({
         dataRegister: data
       })
-      /* 
+
       const { dispatch } = this.props
-      dispatch(register.includeRegister(data)) */
+      dispatch({ type: 'TOGGLE_MODAL_OPEN' })
     } else {
       console.error('preencher os campos')
     }
+  }
+
+  handleClick() {
+    const { dispatch } = this.props
+    dispatch(register.includeRegister(this.state.dataRegister, this.props.history))
   }
 
   render() {
@@ -142,6 +145,8 @@ class CreateRegister extends Component {
             title="Titulo"
             subTitle={`Deseja incluir o usuário ${this.state.nome }`}
             dataRegister={ this.state.dataRegister }
+            onClick={ this.handleClick }
+            pending={ pending }
           />
         }
       </div>
