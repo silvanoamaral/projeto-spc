@@ -24,7 +24,7 @@ const updateRegister = (id = 0, params, history) => {
   return dispatch => {
     dispatch(fetchRegisterPending())
 
-    axios.put(`http://5d52bcb73432e70014e6bc2c.mockapi.io/spc/registro/${id}`, params, {
+    axios.put(`https://5d52bcb73432e70014e6bc2c.mockapi.io/spc/registro/${id}`, params, {
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json'
@@ -44,7 +44,7 @@ const removeRegister = (id = 0) => {
   return dispatch => {
     dispatch(fetchRegisterPending())
 
-    axios.delete(`http://5d52bcb73432e70014e6bc2c.mockapi.io/spc/registro/${id}`, {
+    axios.delete(`https://5d52bcb73432e70014e6bc2c.mockapi.io/spc/registro/${id}`, {
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json'
@@ -64,7 +64,7 @@ const includeRegister = (params, history) => {
   return dispatch => {
     dispatch(fetchRegisterPending())
 
-    axios.post(`http://5d52bcb73432e70014e6bc2c.mockapi.io/spc/registro/`, params, {
+    axios.post(`https://5d52bcb73432e70014e6bc2c.mockapi.io/spc/registro/`, params, {
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json'
