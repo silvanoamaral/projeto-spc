@@ -5,6 +5,7 @@ import register from '../../services/register'
 
 import InputCustomized from '../../components/InputCustomized'
 import Lightbox from '../../components/Lightbox'
+import mask from '../../utils/mask'
 
 import './CreateRegister.scss'
 
@@ -19,7 +20,8 @@ class CreateRegister extends Component {
       dataInclusao: '',
       errorLogin: false,
       errorMessage: '',
-      submitted: false
+      submitted: false,
+      dataRegister: {},
     }
 
     this.handleChange = this.handleChange.bind(this)
@@ -30,7 +32,7 @@ class CreateRegister extends Component {
     return localStorage.getItem('userLogin') != null
   }
 
-  componentDidMount() {    
+  componentDidMount() {
     if(!this.checkLoginStatus()) {
       this.props.history.push('/')
     }
@@ -46,20 +48,47 @@ class CreateRegister extends Component {
     })
   }
 
+  isNoSubmitForm() {
+    const isValidName = this.state.nome.length > 5
+    const isValidCPF =  this.state.cpf.length > 12
+
+    if(isValidCPF && isValidName) {
+      return true
+    }
+    return false
+  }
+
   handleSubmit(e) {
     e.preventDefault()
-    const { cpf, nome, valorDivida, dataInclusao} = this.state
-    const data = {
-      nome,
-      cpf,
-      valorDivida,
-      dataInclusao
+
+    this.setState({ submitted: true })
+
+    if(this.isNoSubmitForm()) {
+      const { dispatch } = this.props
+      dispatch({ type: 'TOGGLE_MODAL_OPEN' })
+
+      const { cpf, nome, valorDivida, dataInclusao } = this.state
+      const data = {
+        nome,
+        cpf,
+        valorDivida,
+        dataInclusao
+      }
+
+      this.setState({
+        dataRegister: data
+      })
+      /* 
+      const { dispatch } = this.props
+      dispatch(register.includeRegister(data)) */
+    } else {
+      console.error('preencher os campos')
     }
-    const { dispatch } = this.props
-    dispatch(register.includeRegister(data))
   }
 
   render() {
+    const { toggleModal } = this.props.registrationReducer
+
     return (
       <div className="create__register box__form"> 
         <form onSubmit={ this.handleSubmit } className="form">
@@ -68,7 +97,7 @@ class CreateRegister extends Component {
           <InputCustomized
             label="CPF"
             name="cpf"
-            value={ this.state.cpf }
+            value={ mask.cpfMask(this.state.cpf) }
             maxLength='14'
             submitted={ this.state.submitted }
             placeholder="CPF"
@@ -87,7 +116,8 @@ class CreateRegister extends Component {
           <InputCustomized
             label="Valor da dívida"
             name="valorDivida"
-            value={ this.state.valorDivida }
+            value={ mask.priceMask(this.state.valorDivida) }
+            maxLength='10'
             submitted={ this.state.submitted }
             placeholder="Valor da dívida em R$"
             onChange={ this.handleChange }
@@ -96,7 +126,8 @@ class CreateRegister extends Component {
           <InputCustomized
             label="Data de inclusão"
             name="dataInclusao"
-            value={ this.state.dataInclusao }
+            value={ mask.dateMask(this.state.dataInclusao) }
+            maxLength='10'
             submitted={ this.state.submitted }
             placeholder="dd/mm/aaaa"
             onChange={ this.handleChange }
@@ -106,13 +137,20 @@ class CreateRegister extends Component {
             <button className="btn btn-primary">Adicionar entrada</button>
           </div>
         </form>
-        <Lightbox
-          title="Titulo "
-          subTitle={`Deseja incluir o usuário ${this.state.nome }`}
-        />
+        {toggleModal &&
+          <Lightbox
+            title="Titulo"
+            subTitle={`Deseja incluir o usuário ${this.state.nome }`}
+            dataRegister={ this.state.dataRegister }
+          />
+        }
       </div>
     )
   }
 }
 
-export default connect()(CreateRegister)
+const mapStateToProps = (state) => {
+  return { ...state }
+}
+
+export default connect(mapStateToProps)(CreateRegister)

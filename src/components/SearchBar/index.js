@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { Link } from 'react-router-dom'
 
+import mask from '../../utils/mask'
 import { searchRegister } from '../../redux/actions'
 import './SearchBar.scss'
 
@@ -17,7 +18,7 @@ class SearchBar extends Component {
             type="text"
             className="search__input"
             placeholder="Filtrar pelo CPF"
-            onChange={ e => searchRegister(e.target.value) }
+            onChange={ e => searchRegister(mask.cpfMask(e.target.value)) }
             value={ value }
           />
         </div>

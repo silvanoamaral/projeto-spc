@@ -2,8 +2,9 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
 import getRegister from '../../services/register'
-
 import InputCustomized from '../../components/InputCustomized'
+import Lightbox from '../../components/Lightbox'
+import mask from '../../utils/mask'
 
 class EditRegister extends Component {
   constructor(props) {
@@ -18,7 +19,7 @@ class EditRegister extends Component {
       errorLogin: false,
       errorMessage: '',
       submitted: false,
-      register: '',
+      dataRegister: {},
       condition: true
     }
 
@@ -30,16 +31,18 @@ class EditRegister extends Component {
     const { pending, filtered } = this.props.registrationReducer
 
     if(!pending) {
-      if(filtered.data != undefined) {
-        if (this.state.condition) {
-          this.setState({
-            condition: false,
-            idRegister: filtered.data.id,
-            cpf: filtered.data.cpf,
-            nome: filtered.data.nome,
-            valorDivida: filtered.data.valorDivida || filtered.data.valordivida,
-            dataInclusao: filtered.data.dataInclusao,
-          })
+      if(filtered != undefined) {
+        if(filtered.data != undefined) {
+          if (this.state.condition) {
+            this.setState({
+              condition: false,
+              idRegister: filtered.data.id,
+              cpf: filtered.data.cpf,
+              nome: filtered.data.nome,
+              valorDivida: filtered.data.valorDivida || filtered.data.valordivida,
+              dataInclusao: filtered.data.dataInclusao,
+            })
+          }
         }
       }
     }
@@ -52,7 +55,7 @@ class EditRegister extends Component {
       const { register } = this.props.location.state
 
       this.setState({
-        register
+        idRegister: register
       })
       const { dispatch } = this.props
       dispatch(getRegister.getRegister(register))
@@ -78,72 +81,74 @@ class EditRegister extends Component {
       valorDivida,
       dataInclusao
     }
+    this.setState({
+      dataRegister: data
+    })
+    console.log(data)
 
     const { dispatch } = this.props
-    dispatch(getRegister.updateRegister(this.state.idRegister, data))
+    dispatch({ type: 'TOGGLE_MODAL_OPEN' })
+    //dispatch(getRegister.updateRegister(this.state.idRegister, data))
   }
 
   render() {
-    const { register } = this.state
-    const { pending, filtered } = this.props.registrationReducer
+    const { toggleModal } = this.props.registrationReducer
 
-    return <>
-    {pending ?
-      <h2>Aguarde...</h2>
-    : (filtered &&
-        (filtered.data ?         
-          <div className="create__register box__form">
-            <form onSubmit={ this.handleSubmit } className="form">
-              <h2>Editar</h2>
+    return <div className="create__register box__form">
+      <form onSubmit={ this.handleSubmit } className="form">
+        <h2>Editar</h2>
 
-              <InputCustomized
-                label="CPF"
-                name="cpf"
-                value={ this.state.cpf }
-                maxLength='14'
-                submitted={ this.state.submitted }
-                placeholder="CPF"
-                onChange={ this.handleChange }
-              />
+        <InputCustomized
+          label="CPF"
+          name="cpf"
+          value={ mask.cpfMask(this.state.cpf) }
+          maxLength='14'
+          submitted={ this.state.submitted }
+          placeholder="CPF"
+          onChange={ this.handleChange }
+        />
 
-              <InputCustomized
-                label="Nome"
-                name="nome"
-                value={ this.state.nome }
-                submitted={ this.state.submitted }
-                placeholder="Nome completo"
-                onChange={ this.handleChange }
-              />
+        <InputCustomized
+          label="Nome"
+          name="nome"
+          value={ this.state.nome }
+          submitted={ this.state.submitted }
+          placeholder="Nome completo"
+          onChange={ this.handleChange }
+        />
 
-              <InputCustomized
-                label="Valor da dívida"
-                name="valorDivida"
-                value={ this.state.valorDivida }
-                submitted={ this.state.submitted }
-                placeholder="Valor da dívida em R$"
-                onChange={ this.handleChange }
-              />
+        <InputCustomized
+          label="Valor da dívida"
+          name="valorDivida"
+          value={ this.state.valorDivida }
+          maxLength='10'
+          submitted={ this.state.submitted }
+          placeholder="Valor da dívida em R$"
+          onChange={ this.handleChange }
+        />
 
-              <InputCustomized
-                label="Data de inclusão"
-                name="dataInclusao"
-                value={ this.state.dataInclusao }
-                submitted={ this.state.submitted }
-                placeholder="dd/mm/aaaa"
-                onChange={ this.handleChange }
-              />
+        <InputCustomized
+          label="Data de inclusão"
+          name="dataInclusao"
+          value={ mask.dateMask(this.state.dataInclusao) }
+          maxLength='10'
+          submitted={ this.state.submitted }
+          placeholder="dd/mm/aaaa"
+          onChange={ this.handleChange }
+        />
 
-              <div className="form__group">
-                <button className="btn btn-primary">Adicionar entrada</button>
-              </div>
-            </form>
-          </div>
-          :
-          <p>Not Found</p>
-        )
-      )
-    }
-    </>
+        <div className="form__group">
+          <button className="btn btn-primary">Adicionar entrada</button>
+        </div>
+      </form>
+      {toggleModal &&
+        <Lightbox
+          title="Titulo"
+          subTitle={`Deseja alterar o registro ${this.state.nome }`}
+          dataRegister={ this.state.dataRegister }
+        />
+      }
+    </div>
   }
 }
 

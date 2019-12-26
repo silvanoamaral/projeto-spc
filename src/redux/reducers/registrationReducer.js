@@ -3,10 +3,13 @@ import {
   FETCH_REGISTRATION_PENDING,
   FETCH_REGISTRATION_SUCCESS,
   FETCH_REGISTRATION_SEARCH,
+  TOGGLE_MODAL_OPEN,
+  TOGGLE_MODAL_CLOSE,
 } from '../actions/actionTypes'
 
 const initialState = {
   pending: false,
+  toggleModal: false,
   registration: [],
   filtered: [],
   filters: [],
@@ -45,10 +48,20 @@ export const registrationReducer = (state = initialState, action) => {
         filtered: {
           "data" : state.registration.data.filter(item => {
             const lc = item.cpf.toLowerCase()
-            const filter = value.toLowerCase()
+            const filter = value.replace(/\D/g, '').toLowerCase()
             return lc.includes(filter)
           })
         }
+      }
+    }
+    case TOGGLE_MODAL_OPEN: {
+      return {
+        toggleModal: true,
+      }
+    }
+    case TOGGLE_MODAL_CLOSE: {
+      return {
+        toggleModal: false,
       }
     }
     default:
