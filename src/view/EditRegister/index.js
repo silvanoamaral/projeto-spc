@@ -112,6 +112,7 @@ class EditRegister extends Component {
           submitted={ this.state.submitted }
           placeholder="CPF"
           onChange={ this.handleChange }
+          active={ true }
         />
 
         <InputCustomized

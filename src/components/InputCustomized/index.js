@@ -11,6 +11,7 @@ const InputCustomized = ( props ) => {
         value={ props.value }
         onChange={ props.onChange }
         placeholder={ props.placeholder }
+        disabled={ props.active || false }
       />
       {props.submitted && !props.value &&
         <div className="form__group-error">{ props.name } is required</div>
