@@ -13,7 +13,8 @@ class Login extends React.Component {
       password: '',
       errorLogin: false,
       errorMessage: '',
-      submitted: false
+      submitted: false,
+      inputType: 'password'
     }
 
     this.handleChange = this.handleChange.bind(this)
@@ -44,7 +45,7 @@ class Login extends React.Component {
   }
 
   handleClick() {
-    console.log('click')
+    this.setState({ inputType: this.state.inputType === 'password' ? 'text' : 'password' })
   }
 
   handleSubmit(e) {
@@ -98,7 +99,7 @@ class Login extends React.Component {
           <div className={'form__group' + (submitted && !password ? ' has-error' : '')}>
             <label htmlFor="password">Password</label>
             <input 
-              type="password"
+              type={ this.state.inputType }
               name="password"
               value={ password }
               onChange={ this.handleChange }

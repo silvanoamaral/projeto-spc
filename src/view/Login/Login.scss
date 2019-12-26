@@ -1,10 +1,7 @@
 .login {
-  min-width: 500px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  margin-top: -200px;
-  margin-left: -200px;
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto 300px auto;
 
   .message__error {
     background: #f15050;

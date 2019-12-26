@@ -128,7 +128,7 @@ class EditRegister extends Component {
           label="Valor da dívida"
           name="valorDivida"
           value={ this.state.valorDivida }
-          maxLength='10'
+          maxLength='6'
           submitted={ this.state.submitted }
           placeholder="Valor da dívida em R$"
           onChange={ this.handleChange }

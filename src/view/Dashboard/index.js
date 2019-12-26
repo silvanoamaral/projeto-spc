@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import register from '../../services/register'
 import SearchBar from '../../components/SearchBar'
 import Lightbox from '../../components/Lightbox'
+import mask from '../../utils/mask'
 
 import './Dashboard.scss'
 
@@ -67,9 +68,9 @@ class Dashboard extends Component {
           {
             filtered.data.map(item => {
               return <li key={ item.id }>
-                <span>{ item.cpf }</span>
+                <span>{ mask.cpfMask(item.cpf) }</span>
                 <span>{ item.nome }</span>
-                <span>{ item.valorDivida || item.valordivida }</span>
+                <span>R${ item.valorDivida || item.valordivida }</span>
                 <span>{ item.dataInclusao }</span>
                 <span>{ item.numeroContrato }</span>
                 <span className="action">
