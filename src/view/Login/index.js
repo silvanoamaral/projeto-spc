@@ -1,6 +1,7 @@
 import React from 'react'
 
 import InputCustomized from '../../components/InputCustomized'
+import ButtonForm from '../../components/ButtonForm'
 
 import './Login.scss'
 
@@ -117,9 +118,7 @@ class Login extends React.Component {
               </svg>
             </button>
           </div>
-          <div className="form__group">
-            <button className="btn btn-primary">Entrar</button>
-          </div>
+          <ButtonForm label="Entrar" />
         </form>
       </div>
     )

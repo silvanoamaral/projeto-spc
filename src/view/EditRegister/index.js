@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import getRegister from '../../services/register'
 import InputCustomized from '../../components/InputCustomized'
 import Lightbox from '../../components/Lightbox'
+import ButtonForm from '../../components/ButtonForm'
 import mask from '../../utils/mask'
 
 class EditRegister extends Component {
@@ -144,9 +145,7 @@ class EditRegister extends Component {
           onChange={ this.handleChange }
         />
 
-        <div className="form__group">
-          <button className="btn btn-primary">Adicionar entrada</button>
-        </div>
+        <ButtonForm label="Adicionar entrada" />
       </form>
       {toggleModal &&
         <Lightbox

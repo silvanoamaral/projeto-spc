@@ -5,6 +5,7 @@ import register from '../../services/register'
 
 import InputCustomized from '../../components/InputCustomized'
 import Lightbox from '../../components/Lightbox'
+import ButtonForm from '../../components/ButtonForm'
 import mask from '../../utils/mask'
 
 import './CreateRegister.scss'
@@ -102,7 +103,7 @@ class CreateRegister extends Component {
             label="CPF"
             name="cpf"
             value={ mask.cpfMask(this.state.cpf) }
-            maxLength='14'
+            maxLength="14"
             submitted={ this.state.submitted }
             placeholder="CPF"
             onChange={ this.handleChange }
@@ -121,7 +122,7 @@ class CreateRegister extends Component {
             label="Valor da dívida"
             name="valorDivida"
             value={ mask.priceMask(this.state.valorDivida) }
-            maxLength='10'
+            maxLength="10"
             submitted={ this.state.submitted }
             placeholder="Valor da dívida em R$"
             onChange={ this.handleChange }
@@ -131,15 +132,13 @@ class CreateRegister extends Component {
             label="Data de inclusão"
             name="dataInclusao"
             value={ mask.dateMask(this.state.dataInclusao) }
-            maxLength='10'
+            maxLength="10"
             submitted={ this.state.submitted }
             placeholder="dd/mm/aaaa"
             onChange={ this.handleChange }
           />
 
-          <div className="form__group">
-            <button className="btn btn-primary">Adicionar entrada</button>
-          </div>
+          <ButtonForm label="Adicionar entrada" />
         </form>
         {toggleModal &&
           <Lightbox

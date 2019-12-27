@@ -37,6 +37,9 @@ npm run server
 # Server runs on http://localhost:5002 and client on http://localhost:8002
 
 ```
+### `To run the module's unit tests`
+* Run command `npm run test:watch`
+
 ### `Available Scripts`
 
 After installing project dependencies, in the project directory you can run: `npm run dev`
