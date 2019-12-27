@@ -6,7 +6,7 @@ Project [here](https://projeto-spc.herokuapp.com/)
 
 ## Developed With
 
-* Reactjs
+* React
 * Redux
 * Webpack
 * HTML
