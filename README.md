@@ -13,6 +13,7 @@ Project [here](https://projeto-spc.herokuapp.com/)
 * CSS / SASS / BEM
 * Javascript / ES6
 * Node.js
+* Jest
 
 ## Getting Started
 
